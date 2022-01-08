@@ -11,7 +11,13 @@ public class Lottery {
     Random random = new Random();
 
     public Lottery(int numberHalmaz, int numberHuzas) {
-        // ellenőrizni kellene, hogy ne legyen engatív, és ne legyen több a numberof huzas
+        if (numberHalmaz <= 0 || numberHuzas <= 0) {
+            throw new IllegalArgumentException("Parameteres must be positive!");
+        }
+        if (numberHalmaz < numberHuzas) {
+            throw new IllegalArgumentException("First parameter must be bigger than second one!");
+        }
+
         this.numberHalmaz = numberHalmaz;
         this.numberHuzas = numberHuzas;
     }
@@ -19,7 +25,7 @@ public class Lottery {
     public List<Integer> startLottery() {
         List<Integer> result = new ArrayList<>();
         while (result.size() != numberHuzas) {
-            int number = random.nextInt(numberHalmaz)+1;
+            int number = random.nextInt(1, numberHalmaz + 1);
             if (!result.contains(number)) {
                 result.add(number);
             }
